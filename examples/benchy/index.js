@@ -252,8 +252,6 @@ var Picimo = require('picimo');
 
 
 console.log('Welcome to the %c %cnobinger%c benchmark v1 %c%c a picimo demo! ', 'background-color:yellow', 'font-style:italic;background-color:yellow', 'font-style:normal;background-color:yellow', 'background-color:transparent', 'background-color:red;color:#fff');
-console.dir(Picimo);
-console.dir(_benchy2.default);
 
 (function () {
     // --- stats.js ---- {{{
