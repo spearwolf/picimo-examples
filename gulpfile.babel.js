@@ -1,52 +1,12 @@
+'use strict';
+
 require("babel-register");
 
-const babel = require('babelify');
-const browserify = require('browserify');
-const buffer = require('vinyl-buffer');
-const exit = require('gulp-exit');
+const glob = require('glob');
 const gulp = require('gulp');
-const gutil = require('gulp-util');
-const size = require('gulp-size');
-const source = require('vinyl-source-stream');
-const sourcemaps = require('gulp-sourcemaps');
-const watchify = require('watchify');
 const webserver = require('gulp-webserver');
 
-function compile (name, isWatch) {
-
-    let bundler = watchify(browserify('./src/examples/' + name + '/index.js', { debug: true }).transform(babel));
-
-    function rebundle () {
-
-        gutil.log("Bundling '" + gutil.colors.yellow(name) + "'...");
-
-        return bundler.bundle()
-            .on('error', function (err) { console.error(err); this.emit('end'); })
-            .pipe(source('index.js'))
-            .pipe(buffer())
-            .pipe(sourcemaps.init({ loadMaps: true }))
-            .pipe(sourcemaps.write('./'))
-            .pipe(size({ title: name, showFiles: true }))
-            .pipe(gulp.dest('./examples/' + name));
-    }
-
-    if (isWatch) {
-
-        bundler.on('update', () => {
-            rebundle();
-        });
-
-        rebundle();
-
-    } else {
-        rebundle().pipe(exit());
-    }
-
-}
-
-function watch (name) {
-    return compile(name, true);
-}
+import { createTask, compile, watch } from './lib/gulp/create-build-tasks';
 
 gulp.task('server', function () {
     gulp.src('.')
@@ -59,8 +19,19 @@ gulp.task('server', function () {
         }));
 });
 
-gulp.task('build', () => compile('benchy'));
-gulp.task('watch', () => watch('benchy'));
+let examples = glob.sync('./src/examples/*/').map((dir) => {
+
+    let name = /\.\/src\/examples\/(.*)\/$/.exec(dir)[1];
+
+    createTask(`build:${name}`, compile, name);
+    createTask(`watch:${name}`, watch, name);
+
+    return name;
+
+});
+
+gulp.task('build', examples.map((name) => `build:${name}`));
+gulp.task('watch', examples.map((name) => `watch:${name}`));
 
 gulp.task('default', ['server', 'watch']);
 

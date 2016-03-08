@@ -239,7 +239,6 @@ var $export = require('./_export');
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 $export($export.S + $export.F * !require('./_descriptors'), 'Object', {defineProperty: require('./_object-dp').f});
 },{"./_descriptors":10,"./_export":12,"./_object-dp":18}],22:[function(require,module,exports){
-/* global Stats */
 'use strict';
 
 var _benchy = require('./lib/benchy');
@@ -248,34 +247,11 @@ var _benchy2 = _interopRequireDefault(_benchy);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+require('picimo-stats');
 var Picimo = require('picimo');
 
 
 console.log('Welcome to the %c %cnobinger%c benchmark v1 %c%c a picimo demo! ', 'background-color:yellow', 'font-style:italic;background-color:yellow', 'font-style:normal;background-color:yellow', 'background-color:transparent', 'background-color:red;color:#fff');
-
-(function () {
-    // --- stats.js ---- {{{
-
-    Picimo.App.on('create', function (app, options) {
-        if (options.showStats) {
-
-            app.on('init', function () {
-
-                var stats = new Stats();
-
-                stats.setMode(0);
-                stats.domElement.style.position = 'absolute';
-                stats.domElement.style.right = '0px';
-                stats.domElement.style.top = '0px';
-
-                document.body.appendChild(stats.domElement);
-
-                app.on('frameBegin', stats.begin.bind(stats));
-                app.on('frameEnd', stats.end.bind(stats));
-            });
-        }
-    });
-})(); // --- }}}
 
 var app = new Picimo.App({
     canvas: document.getElementById('picimo'),
@@ -304,7 +280,7 @@ app.scene.appendSpriteGroup(atlas, {
 //container.className = 'benchy-controls';
 //document.body.appendChild(container);
 
-},{"./lib/benchy":23,"picimo":1}],23:[function(require,module,exports){
+},{"./lib/benchy":23,"picimo":1,"picimo-stats":24}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -447,7 +423,33 @@ var Benchy = function () {
 
 exports.default = Benchy;
 
-},{"babel-runtime/helpers/classCallCheck":3,"babel-runtime/helpers/createClass":4}]},{},[22])
+},{"babel-runtime/helpers/classCallCheck":3,"babel-runtime/helpers/createClass":4}],24:[function(require,module,exports){
+/* global Stats */
+'use strict';
+
+var Picimo = require('picimo');
+
+Picimo.App.on('create', function (app, options) {
+    if (options.showStats) {
+
+        app.on('init', function () {
+
+            var stats = new Stats();
+
+            stats.setMode(0);
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.right = '0px';
+            stats.domElement.style.top = '0px';
+
+            document.body.appendChild(stats.domElement);
+
+            app.on('frameBegin', stats.begin.bind(stats));
+            app.on('frameEnd', stats.end.bind(stats));
+        });
+    }
+});
+
+},{"picimo":1}]},{},[22])
 
 
 //# sourceMappingURL=index.js.map
