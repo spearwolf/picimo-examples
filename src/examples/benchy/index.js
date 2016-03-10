@@ -1,7 +1,7 @@
 'use strict';
 
 require('picimo-stats');
-const Picimo = require('picimo');
+const Picimo = window.Picimo = require('picimo');
 import Benchy from './lib/benchy';
 
 console.log('Welcome to the %c %cnobinger%c benchmark v1 %c%c a picimo demo! ', 'background-color:yellow', 'font-style:italic;background-color:yellow', 'font-style:normal;background-color:yellow', 'background-color:transparent', 'background-color:red;color:#fff' );
