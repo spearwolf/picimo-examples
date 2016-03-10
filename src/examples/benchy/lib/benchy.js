@@ -1,5 +1,7 @@
 'use strict';
 
+const eventize = require('eventize-js');
+
 function sample (arr) {
     return arr[(Math.random() * arr.length)|0];
 }
@@ -16,6 +18,8 @@ export default class Benchy {
 
         this.allBunnys = [];
 
+        eventize(this);
+
     }
 
     init (done, sprites) {
@@ -23,7 +27,7 @@ export default class Benchy {
         console.log('Benchy#spriteGroup', sprites);
 
         this.sprites = sprites;
-        this.createBunnys(20);
+        this.createBunnys();
 
     }
 
@@ -35,11 +39,11 @@ export default class Benchy {
         if (mouse) {
             if (mouse.isBtnLeftDown) {
                 if (sprites.pool.usedCount < sprites.pool.capacity - 10) {
-                    this.createBunnys(5, sample(sprites.textureAtlas.frameNames));
+                    this.createBunnys(sample(sprites.textureAtlas.frameNames));
                 }
             } else if (mouse.isBtnRightDown) {
                 if (sprites.pool.usedCount) {
-                    this.removeBunnys(5);
+                    this.removeBunnys();
                 }
             }
         }
@@ -84,7 +88,9 @@ export default class Benchy {
 
     } // frame
 
-    createBunnys (bunnyCount, frameName) {
+    createBunnys (frameName) {
+
+        let bunnyCount = this.calcBunnyCount(20);
 
         var i, bunny;
         var scene = this.sprites.parentNode;
@@ -106,15 +112,28 @@ export default class Benchy {
             this.allBunnys.push( bunny );
         }
 
+        this.emit('createBunnys', this.allBunnys.length);
+
     } // createBunnys
 
-    removeBunnys (bunnyCount) {
+    removeBunnys () {
+
+        let bunnyCount = this.calcBunnyCount();
 
         var i, bunny;
-        for (i = 0; i < bunnyCount && this.allBunnys.length > 1; i++) {
+        for (i = 0; i < bunnyCount && this.allBunnys.length > 5; i++) {
             bunny = this.allBunnys.pop();
             bunny.destroy();
         }
+
+        this.emit('removeBunnys', this.allBunnys.length);
+
+    }
+
+    calcBunnyCount (zeroCount = 0) {
+
+        let totalCount = this.allBunnys.length;
+        return totalCount ? (totalCount < 1500 ? 5 : 50) : zeroCount;
 
     }
 

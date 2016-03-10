@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "color-js": "*",
-    "eventize-js": "*",
+    "eventize-js": "^0.0.10",
     "gl-matrix": "*",
     "lodash": "*"
   }
