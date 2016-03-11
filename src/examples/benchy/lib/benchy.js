@@ -36,7 +36,7 @@ export default class Benchy {
         var sprites = this.sprites;
         var mouse = sprites.app.mouseController;
 
-        if (mouse) {
+        if (mouse && !mouse.isDrag) {
             if (mouse.isBtnLeftDown) {
                 if (sprites.pool.usedCount < sprites.pool.capacity - 10) {
                     this.createBunnys(sample(sprites.textureAtlas.frameNames));

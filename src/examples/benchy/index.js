@@ -27,14 +27,30 @@ app.scene.appendSpriteGroup(atlas, {
     sprites: 'simple'
 }, benchy);
 
+//app.scene.appendChild(
+    //app.create('scenegraph.spriteGroup', atlas, { capacity: 10000, sprites: 'simple' }, benchy) );
+
 //-------------------------
 // bunny counter display
 //--------------------------
 
+let counterTextNode = document.createTextNode('');
+document.getElementById('counterDisplay').appendChild(counterTextNode);
+
 var updateCounterDisplay = (function (element, bunnyCount) {
-    element.innerHTML = bunnyCount;
-}).bind(null, document.getElementById('counterDisplay'));
+    element.nodeValue = bunnyCount;
+}).bind(null, counterTextNode);
 
 benchy.on('createBunnys', updateCounterDisplay);
 benchy.on('removeBunnys', updateCounterDisplay);
+
+//------------------------------
+// scroll sprites layer by mouse
+//---------------------------------
+
+app.on('mouseMove', (move, ctrl) => {
+    if (move.isDrag && (ctrl.isBtnLeftDown || ctrl.isBtnRightDown)) {
+        app.scene.transform.translate(move.translateX, move.translateY);
+    }
+});
 
