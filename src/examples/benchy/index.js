@@ -7,14 +7,13 @@ import Benchy from './lib/benchy';
 console.log('Welcome to the %c %cnobinger%c benchmark v1 %c%c a picimo demo! ', 'background-color:yellow', 'font-style:italic;background-color:yellow', 'font-style:normal;background-color:yellow', 'background-color:transparent', 'background-color:red;color:#fff' );
 
 var app = window.app = new Picimo.App({
-    canvas    : document.getElementById( 'picimo' ),
     alpha     : true,
-    showStats : true
+    showStats : false
 });
 
-app.shader.loadVertexShader('sprite', '/assets/shaders/sprite/shader.vert');
-app.shader.loadFragmentShader('sprite', '/assets/shaders/sprite/shader.frag');
-app.shader.addProgram('sprite', 'sprite', 'sprite');
+app.loadVertexShader('sprite', '/assets/shaders/sprite/shader.vert');
+app.loadFragmentShader('sprite', '/assets/shaders/sprite/shader.frag');
+app.addProgram('sprite', 'sprite', 'sprite');
 
 app.scene.setSize(800, 600, "contain");
 
@@ -50,7 +49,8 @@ benchy.on('removeBunnys', updateCounterDisplay);
 
 app.on('mouseMove', (move, ctrl) => {
     if (move.isDrag && (ctrl.isBtnLeftDown || ctrl.isBtnRightDown)) {
-        app.scene.transform.translate(move.translateX, move.translateY);
+        let pixelRatio = app.scene.pixelRatio;
+        app.scene.transform.translate(move.translateX / pixelRatio, move.translateY / pixelRatio);
     }
 });
 
