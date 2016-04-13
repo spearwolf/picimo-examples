@@ -11,10 +11,6 @@ var app = window.app = new Picimo.App({
     showStats : false
 });
 
-app.loadVertexShader('sprite', '/assets/shaders/sprite/shader.vert');
-app.loadFragmentShader('sprite', '/assets/shaders/sprite/shader.frag');
-app.addProgram('sprite', 'sprite', 'sprite');
-
 app.scene.setSize(800, 600, "contain");
 
 var atlas = app.loadTextureAtlas('./nobinger.json');
