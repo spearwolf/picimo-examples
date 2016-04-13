@@ -56,6 +56,7 @@
     "color-js": "*",
     "eventize-js": "^0.0.11",
     "gl-matrix": "*",
-    "lodash": "*"
+    "lodash": "*",
+    "picimo": "spearwolf/picimo"
   }
 }

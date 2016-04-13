@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="author" content="Wolfger Schramm <wolfger@spearwolf.de>">
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:200' rel='stylesheet' type='text/css'>
+    <title>picimo ➤ picture playground</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-size: 16px;
+            background-color: #eee;
+        }
+        main {
+            display: flex;
+            height: 100%;
+        }
+        #picimo {
+            flex-grow: 1;
+            background: linear-gradient(to bottom, #61a5dd 0%, #aeecfe 100%);
+        }
+        .controls {
+            flex-grow: 0;
+            background-color: #f0f0f0;
+            border-left: 1px solid #89a;
+            padding: 1rem 0.5rem;
+        }
+        .controls h1 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 200;
+        }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="picimo"></div>
+      <div class="controls">
+          <h1>picimo picture playground</h1>
+
+      </div>
+    </main>
+    <script src="/vendor/stats.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
