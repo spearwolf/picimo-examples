@@ -31,7 +31,8 @@
         }
         #picimo {
             flex-grow: 1;
-            background: linear-gradient(to bottom, #61a5dd 0%, #aeecfe 100%);
+            height: 100%;
+            background: linear-gradient(to bottom, #cbe0eb 0%, #f0f8ff 100%);
         }
         .controls {
             flex-grow: 0;
@@ -45,17 +46,67 @@
             font-family: 'Exo 2', sans-serif;
             font-weight: 200;
         }
+        .controls .controlRow {
+            display: flex;
+        }
+        .controlRow {
+            margin-top: 0.75rem;
+        }
+        .controlRow label {
+            padding-right: 0.5em;
+            min-width: 5em;
+            font-weight: bold;
+        }
+        .controlRow input {
+            flex-grow: 1;
+        }
+        .controlRow output {
+            padding-left: 0.5em;
+            width: 3em;
+            overflow: hidden;
+        }
     </style>
   </head>
   <body>
     <main>
       <div id="picimo"></div>
       <div class="controls">
-          <h1>picimo picture playground</h1>
-
+        <h1>picimo picture playground</h1>
+        <form id=pictureControls>
+          <div class=controlRow>
+              <label for=posX>pox-x</label>
+              <input id=posX class=input type=range value=0>
+              <output for=posX>0</output>
+          </div>
+          <div class=controlRow>
+              <label for=posY>pox-y</label>
+              <input id=posY class=input type=range value=0>
+              <output for=posY>0</output>
+          </div>
+          <div class=controlRow>
+              <label for=rotateDegree>rotate(deg)</label>
+              <input id=rotateDegree class=input type=range min=-180 max=180 step=0.001 value=0>
+              <output for=rotateDegree>0</output>
+          </div>
+          <div class=controlRow>
+              <label for=scale>scale</label>
+              <input id=scale class=input type=range min=0.1 max=2 step=0.001 value=1>
+              <output for=scale>1</output>
+          </div>
+          <div class=controlRow>
+              <label for=anchorX>anchor-x</label>
+              <input id=anchorX class=input type=range min=-2 max=2 step=0.001 value=0>
+              <output for=anchorX>0</output>
+          </div>
+          <div class=controlRow>
+              <label for=anchorY>anchor-y</label>
+              <input id=anchorY class=input type=range min=-2 max=2 step=0.001 value=0>
+              <output for=anchorY>0</output>
+          </div>
+        </form>
       </div>
     </main>
-    <script src="/vendor/stats.min.js"></script>
+    <script src="jquery-2.2.3.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
